@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.AUTO,
-    width: 1000,
-    height: 800,
+    width: 800,
+    height: 600,
     physics: {
         default: 'arcade',
         arcade: {
@@ -46,10 +46,10 @@ function create ()
     platforms = this.physics.add.staticGroup();
 
     // Create platforms
-    platforms.create(500, 768, 'ground').setScale(3).refreshBody(); // Ground platform
-    platforms.create(100, 580, 'ground').setScale(1.5).refreshBody(); // Middle platform
-    platforms.create(900, 430, 'ground').setScale(1.5).refreshBody(); // Middle platform
-    platforms.create(50, 280, 'ground').setScale(1.5).refreshBody(); // High platform
+    platforms.create(400, 568, 'ground').setScale(2).refreshBody(); // Ground platform
+    platforms.create(100, 380, 'ground').setScale(1).refreshBody(); // Middle platform
+    platforms.create(700, 230, 'ground').setScale(1).refreshBody(); // Middle platform
+    platforms.create(50, 170, 'ground').setScale(1).refreshBody(); // High platform
 
     // Player setup
     player = this.physics.add.sprite(100, 450, 'dude');
@@ -96,7 +96,12 @@ function create ()
     bombs = this.physics.add.group();
 
     // Score
-    scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = this.add.text(16, 16, 'Score: 0', { fontFamily: 'Bungee Tint', fontSize: '32px', fill: '#000' });
+
+    //Game Over
+    gameOverText = this.add.text(config.width / 2, config.height / 2, '¡Game Over!', { fontFamily: 'Bungee Tint', fontSize: '64px', fill: '#f00' });
+    gameOverText.setOrigin(0.5, 0.5); 
+    gameOverText.setVisible(false); 
 
     // Collisions
     this.physics.add.collider(player, platforms);
@@ -173,4 +178,5 @@ function hitBomb (player, bomb)
     player.anims.play('turn');
 
     gameOver = true;
+    gameOverText.setVisible(true); 
 }
